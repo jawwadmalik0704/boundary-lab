@@ -3,12 +3,1154 @@
 
 <head>
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BoundaryLab</title>
+
+    <meta name="description" content="BoundaryLab — an interactive logistic regression laboratory built from scratch.">
+
+    <title>BoundaryLab — Logistic Regression Lab</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <h1>BoundaryLab</h1>
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+
+    <header class="site-header">
+
+        <div class="header-inner">
+
+            <div class="brand">
+
+                <div class="brand-mark">
+                    B
+                </div>
+
+                <div>
+                    <div class="brand-name">
+                        BoundaryLab
+                    </div>
+
+                    <div class="brand-subtitle">
+                        Logistic Regression Laboratory
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="header-badge">
+                From Mathematics → Model
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
+
+    <main class="page">
+
+        <!-- HERO -->
+
+        <section class="hero">
+
+            <div class="hero-copy">
+
+                <div class="eyebrow">
+                    INTERACTIVE MACHINE LEARNING
+                </div>
+
+                <h1>
+                    Teach a model to
+                    <span>separate the data.</span>
+                </h1>
+
+                <p>
+                    Create your own dataset, train logistic regression
+                    from scratch, and watch the decision boundary learn
+                    one gradient-descent step at a time.
+                </p>
+
+            </div>
+
+
+            <div class="hero-status">
+
+                <div class="status-dot"></div>
+
+                <span>
+                    Model built from scratch
+                </span>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             WORKSPACE
+        ================================================== -->
+
+        <section class="workspace">
+
+            <!-- LEFT CONTROL PANEL -->
+
+            <aside class="control-panel">
+
+                <div class="panel-heading">
+
+                    <div>
+                        <span class="panel-kicker">
+                            STEP 01
+                        </span>
+
+                        <h2>
+                            Create your dataset
+                        </h2>
+                    </div>
+
+                </div>
+
+
+                <p class="panel-description">
+                    Select a class and click inside the graph to
+                    create training points.
+                </p>
+
+
+                <!-- CLASS SELECTION -->
+
+                <div class="control-group">
+
+                    <label>
+                        Select class
+                    </label>
+
+                    <div class="class-buttons">
+
+                        <button id="class0Button" class="class-button class-zero active" type="button">
+                            <span class="point-dot red-dot"></span>
+                            Class 0
+                        </button>
+
+
+                        <button id="class1Button" class="class-button class-one" type="button">
+                            <span class="point-dot blue-dot"></span>
+                            Class 1
+                        </button>
+
+                    </div>
+
+
+                    <div class="selected-class">
+
+                        Selected:
+
+                        <strong id="selectedClassDisplay">
+                            Class 0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <!-- TRAINING SETTINGS -->
+
+                <div class="divider"></div>
+
+                <div class="control-group">
+
+                    <label for="learningRate">
+                        Learning rate
+                    </label>
+
+                    <div class="input-with-help">
+
+                        <input id="learningRate" type="number" value="0.1" min="0.001" max="5" step="0.01">
+
+                        <span>
+                            α
+                        </span>
+
+                    </div>
+
+                    <small>
+                        Controls how strongly the weights change
+                        after each gradient update.
+                    </small>
+
+                </div>
+
+
+                <div class="control-group">
+
+                    <label for="epochs">
+                        Training epochs
+                    </label>
+
+                    <div class="input-with-help">
+
+                        <input id="epochs" type="number" value="500" min="1" max="5000" step="100">
+
+                        <span>
+                            steps
+                        </span>
+
+                    </div>
+
+                    <small>
+                        More epochs give the model more opportunities
+                        to reduce its loss.
+                    </small>
+
+                </div>
+
+
+                <!-- TRAINING SPEED -->
+
+                <div class="control-group">
+
+                    <label for="trainingSpeed">
+                        Visualization speed
+                    </label>
+
+                    <select id="trainingSpeed">
+
+                        <option value="slow">
+                            Slow — understand each movement
+                        </option>
+
+                        <option value="normal" selected>
+                            Normal
+                        </option>
+
+                        <option value="fast">
+                            Fast
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- BUTTONS -->
+
+                <button id="trainButton" class="primary-button" type="button">
+                    <span>Train Model</span>
+                    <span class="button-arrow">→</span>
+                </button>
+
+
+                <div class="secondary-buttons">
+
+                    <button id="resetModelButton" class="secondary-button" type="button">
+                        Reset Model
+                    </button>
+
+                    <button id="clearDataButton" class="secondary-button" type="button">
+                        Restore Points
+                    </button>
+
+                </div>
+
+
+                <div class="tip-box">
+
+                    <strong>
+                        Try this
+                    </strong>
+
+                    <p>
+                        Put a few Class 0 points inside the Class 1
+                        region. Train again and see whether a straight
+                        decision boundary can classify everything.
+                    </p>
+
+                </div>
+
+            </aside>
+
+
+            <!-- GRAPH AREA -->
+
+            <section class="graph-panel">
+
+                <div class="graph-header">
+
+                    <div>
+
+                        <span class="panel-kicker">
+                            STEP 02
+                        </span>
+
+                        <h2>
+                            Decision boundary
+                        </h2>
+
+                    </div>
+
+
+                    <div class="graph-legend">
+
+                        <span>
+                            <i class="legend-red"></i>
+                            Class 0
+                        </span>
+
+                        <span>
+                            <i class="legend-blue"></i>
+                            Class 1
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="graph-instruction">
+                    Click anywhere inside the plot to add a point.
+                </div>
+
+
+                <div class="canvas-wrapper">
+
+                    <canvas id="boundaryCanvas" width="760" height="520"></canvas>
+
+                </div>
+
+
+                <div class="training-status">
+
+                    <div class="status-item">
+
+                        <span>
+                            Epoch
+                        </span>
+
+                        <strong id="epochDisplay">
+                            0
+                        </strong>
+
+                    </div>
+
+
+                    <div class="status-item">
+
+                        <span>
+                            Loss
+                        </span>
+
+                        <strong id="liveLoss">
+                            --
+                        </strong>
+
+                    </div>
+
+
+                    <div class="status-item">
+
+                        <span>
+                            Learning
+                        </span>
+
+                        <strong id="trainingState">
+                            Ready
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </section>
+
+
+        <!-- =================================================
+             LIVE MODEL STATE
+        ================================================== -->
+
+        <section class="model-section">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <span class="panel-kicker">
+                        STEP 03
+                    </span>
+
+                    <h2>
+                        Watch the model learn
+                    </h2>
+
+                </div>
+
+                <p>
+                    These values change as gradient descent updates
+                    the model.
+                </p>
+
+            </div>
+
+
+            <div class="metrics-grid">
+
+                <div class="metric-card">
+
+                    <span class="metric-label">
+                        Weight w₁
+                    </span>
+
+                    <strong id="weight1">
+                        --
+                    </strong>
+
+                    <span class="metric-description">
+                        Influence of feature x₁
+                    </span>
+
+                </div>
+
+
+                <div class="metric-card">
+
+                    <span class="metric-label">
+                        Weight w₂
+                    </span>
+
+                    <strong id="weight2">
+                        --
+                    </strong>
+
+                    <span class="metric-description">
+                        Influence of feature x₂
+                    </span>
+
+                </div>
+
+
+                <div class="metric-card">
+
+                    <span class="metric-label">
+                        Bias b
+                    </span>
+
+                    <strong id="bias">
+                        --
+                    </strong>
+
+                    <span class="metric-description">
+                        Shifts the boundary
+                    </span>
+
+                </div>
+
+
+                <div class="metric-card">
+
+                    <span class="metric-label">
+                        Training accuracy
+                    </span>
+
+                    <strong id="accuracy">
+                        --
+                    </strong>
+
+                    <span class="metric-description">
+                        Correct training predictions
+                    </span>
+
+                </div>
+
+
+                <div class="metric-card">
+
+                    <span class="metric-label">
+                        Test accuracy
+                    </span>
+
+                    <strong id="testAccuracy">
+                        --
+                    </strong>
+
+                    <span class="metric-description">
+                        Performance on unseen examples
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             LOSS GRAPH
+        ================================================== -->
+
+        <section class="loss-section">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <span class="panel-kicker">
+                        STEP 04
+                    </span>
+
+                    <h2>
+                        Loss over time
+                    </h2>
+
+                </div>
+
+                <p>
+                    The goal of training is to make this curve
+                    move downward.
+                </p>
+
+            </div>
+
+
+            <div class="loss-card">
+
+                <canvas id="lossCanvas" width="1000" height="360"></canvas>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             MATHEMATICS
+        ================================================== -->
+
+        <section class="math-section">
+
+            <div class="section-heading centered">
+
+                <span class="panel-kicker">
+                    UNDER THE HOOD
+                </span>
+
+                <h2>
+                    See the mathematics behind the model
+                </h2>
+
+                <p>
+                    Don't just look at formulas. Follow the exact
+                    journey from a clicked point to a learned boundary.
+                </p>
+
+            </div>
+
+
+            <div class="math-flow">
+
+
+                <!-- STEP 1 -->
+
+                <article class="math-card">
+
+                    <div class="math-number">
+                        01
+                    </div>
+
+                    <div class="math-card-content">
+
+                        <span class="math-label">
+                            INPUT
+                        </span>
+
+                        <h3>
+                            Read the point
+                        </h3>
+
+                        <div class="formula">
+                            (x₁, x₂)
+                        </div>
+
+                        <p>
+                            Every point gives the model two features.
+                            The class label tells the model the correct
+                            answer.
+                        </p>
+
+                        <div class="live-example">
+
+                            <div>
+                                <span>x₁</span>
+                                <strong id="mathX1">
+                                    --
+                                </strong>
+                            </div>
+
+                            <div>
+                                <span>x₂</span>
+                                <strong id="mathX2">
+                                    --
+                                </strong>
+                            </div>
+
+                            <div>
+                                <span>Class</span>
+                                <strong id="mathClass">
+                                    --
+                                </strong>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+                <!-- STEP 2 -->
+
+                <article class="math-card">
+
+                    <div class="math-number">
+                        02
+                    </div>
+
+                    <div class="math-card-content">
+
+                        <span class="math-label">
+                            LINEAR SCORE
+                        </span>
+
+                        <h3>
+                            Combine the features
+                        </h3>
+
+                        <div class="formula">
+                            z = w₁x₁ + w₂x₂ + b
+                        </div>
+
+                        <p>
+                            The weights determine how strongly each
+                            feature influences the model's decision.
+                        </p>
+
+                        <div class="live-equation">
+
+                            <span id="mathScore">
+                                z = --
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+                <!-- STEP 3 -->
+
+                <article class="math-card">
+
+                    <div class="math-number">
+                        03
+                    </div>
+
+                    <div class="math-card-content">
+
+                        <span class="math-label">
+                            PROBABILITY
+                        </span>
+
+                        <h3>
+                            Convert score to probability
+                        </h3>
+
+                        <div class="formula">
+                            σ(z) = 1 / (1 + e⁻ᶻ)
+                        </div>
+
+                        <p>
+                            The sigmoid transforms the score into a
+                            value between 0 and 1.
+                        </p>
+
+                        <div class="probability-display">
+
+                            <span>
+                                P(Class 1)
+                            </span>
+
+                            <strong id="mathProbability">
+                                --
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+                <!-- STEP 4 -->
+
+                <article class="math-card">
+
+                    <div class="math-number">
+                        04
+                    </div>
+
+                    <div class="math-card-content">
+
+                        <span class="math-label">
+                            DECISION
+                        </span>
+
+                        <h3>
+                            Choose a class
+                        </h3>
+
+                        <div class="formula">
+                            p ≥ 0.5 → Class 1
+                        </div>
+
+                        <p>
+                            The 0.5 probability threshold creates the
+                            decision boundary between the two classes.
+                        </p>
+
+                        <div class="prediction-display">
+
+                            <span>
+                                Prediction
+                            </span>
+
+                            <strong id="mathPrediction">
+                                --
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+                <!-- STEP 5 -->
+
+                <article class="math-card">
+
+                    <div class="math-number">
+                        05
+                    </div>
+
+                    <div class="math-card-content">
+
+                        <span class="math-label">
+                            ERROR
+                        </span>
+
+                        <h3>
+                            Measure the mistake
+                        </h3>
+
+                        <div class="formula">
+                            L = −[y log(p) + (1−y) log(1−p)]
+                        </div>
+
+                        <p>
+                            Loss tells the model how far its prediction
+                            is from the actual class.
+                        </p>
+
+                        <div class="live-equation">
+
+                            <span>
+                                Current loss:
+                            </span>
+
+                            <strong id="mathLoss">
+                                --
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+                <!-- STEP 6 -->
+
+                <article class="math-card">
+
+                    <div class="math-number">
+                        06
+                    </div>
+
+                    <div class="math-card-content">
+
+                        <span class="math-label">
+                            LEARNING
+                        </span>
+
+                        <h3>
+                            Update the model
+                        </h3>
+
+                        <div class="formula">
+                            w ← w − α∇L
+                        </div>
+
+                        <p>
+                            Gradient descent changes the parameters
+                            in the direction that reduces the loss.
+                        </p>
+
+                        <div class="update-display">
+
+                            <span>
+                                Epoch
+                            </span>
+
+                            <strong id="mathEpoch">
+                                0
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+
+            <div class="learning-loop">
+
+                <div class="loop-icon">
+                    ↻
+                </div>
+
+                <div>
+
+                    <strong>
+                        Then it repeats.
+                    </strong>
+
+                    <p>
+                        Predict → measure error → calculate gradients
+                        → update weights → redraw the boundary.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             RESULTS
+        ================================================== -->
+
+        <section class="results-section">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <span class="panel-kicker">
+                        STEP 05
+                    </span>
+
+                    <h2>
+                        Model evaluation
+                    </h2>
+
+                </div>
+
+                <p>
+                    Understand what the final predictions mean.
+                </p>
+
+            </div>
+
+
+            <div class="evaluation-grid">
+
+                <div class="evaluation-card">
+
+                    <span>
+                        True Positive
+                    </span>
+
+                    <strong id="truePositive">
+                        --
+                    </strong>
+
+                    <small>
+                        Correct Class 1 prediction
+                    </small>
+
+                </div>
+
+
+                <div class="evaluation-card">
+
+                    <span>
+                        True Negative
+                    </span>
+
+                    <strong id="trueNegative">
+                        --
+                    </strong>
+
+                    <small>
+                        Correct Class 0 prediction
+                    </small>
+
+                </div>
+
+
+                <div class="evaluation-card">
+
+                    <span>
+                        False Positive
+                    </span>
+
+                    <strong id="falsePositive">
+                        --
+                    </strong>
+
+                    <small>
+                        Class 0 predicted as Class 1
+                    </small>
+
+                </div>
+
+
+                <div class="evaluation-card">
+
+                    <span>
+                        False Negative
+                    </span>
+
+                    <strong id="falseNegative">
+                        --
+                    </strong>
+
+                    <small>
+                        Class 1 predicted as Class 0
+                    </small>
+
+                </div>
+
+
+                <div class="evaluation-card">
+
+                    <span>
+                        Precision
+                    </span>
+
+                    <strong id="precision">
+                        --
+                    </strong>
+
+                    <small>
+                        Quality of positive predictions
+                    </small>
+
+                </div>
+
+
+                <div class="evaluation-card">
+
+                    <span>
+                        Recall
+                    </span>
+
+                    <strong id="recall">
+                        --
+                    </strong>
+
+                    <small>
+                        Positive examples detected
+                    </small>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             EXPERIMENTS
+        ================================================== -->
+
+        <section class="experiments-section">
+
+            <div class="section-heading centered">
+
+                <span class="panel-kicker">
+                    EXPERIMENT
+                </span>
+
+                <h2>
+                    Don't just use the model. Break it.
+                </h2>
+
+                <p>
+                    The best way to understand machine learning is
+                    to experiment with its strengths and limitations.
+                </p>
+
+            </div>
+
+
+            <div class="experiment-grid">
+
+                <article class="experiment-card">
+
+                    <span class="experiment-number">
+                        01
+                    </span>
+
+                    <h3>
+                        Easy separation
+                    </h3>
+
+                    <p>
+                        Put Class 0 points mostly on one side and
+                        Class 1 points on the other.
+                    </p>
+
+                    <span class="experiment-result">
+                        Watch the boundary separate them.
+                    </span>
+
+                </article>
+
+
+                <article class="experiment-card">
+
+                    <span class="experiment-number">
+                        02
+                    </span>
+
+                    <h3>
+                        Confusing data
+                    </h3>
+
+                    <p>
+                        Place some points in the opposite region.
+                        Train the model again.
+                    </p>
+
+                    <span class="experiment-result">
+                        Watch the model make compromises.
+                    </span>
+
+                </article>
+
+
+                <article class="experiment-card">
+
+                    <span class="experiment-number">
+                        03
+                    </span>
+
+                    <h3>
+                        Change the learning rate
+                    </h3>
+
+                    <p>
+                        Try 0.01, 0.1, and 1.0 and compare how
+                        quickly the loss changes.
+                    </p>
+
+                    <span class="experiment-result">
+                        Training speed changes.
+                    </span>
+
+                </article>
+
+
+                <article class="experiment-card">
+
+                    <span class="experiment-number">
+                        04
+                    </span>
+
+                    <h3>
+                        Challenge the model
+                    </h3>
+
+                    <p>
+                        Create a pattern that cannot be separated
+                        well by one straight line.
+                    </p>
+
+                    <span class="experiment-result">
+                        Discover the limitation of linear models.
+                    </span>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             FOOTER
+        ================================================== -->
+
+        <footer class="footer">
+
+            <div>
+
+                <strong>
+                    BoundaryLab
+                </strong>
+
+                <span>
+                    Interactive Logistic Regression
+                </span>
+
+            </div>
+
+
+            <span>
+                Built from scratch with HTML, CSS & JavaScript
+            </span>
+
+        </footer>
+
+    </main>
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ====================================================== -->
+
+    <script src="js/training.js"></script>
+    <script src="js/visualization.js"></script>
+    <script src="js/app.js"></script>
+
 </body>
 
 </html>
